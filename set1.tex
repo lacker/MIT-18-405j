@@ -1,4 +1,38 @@
 \documentclass{article}
+\usepackage{amsmath,amsthm,amssymb}
+
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+
 \begin{document}
-Hello LaTeX world!
+
+\title{Problem Set 1, Answers}
+\author{Kevin Lacker}
+\maketitle
+
+\begin{problem}{1}
+
+  A language $L$ is in $\Sigma_2^{\bf{P}}$ iff there is a polynomial time TM
+  $M$ such that:
+
+  \begin{equation}
+    x \in L \iff \exists u_1 \forall u_2 M(x, u_1, u_2)
+  \end{equation}
+
+  where the $u_i$ are polynomial size and we treat $M$ as returning
+  true or false. This can also be written as:
+
+  \begin{equation}
+    x \in L \iff \exists u_1 \neg ( \exists u_2 ( \neg M(x, u_1, u_2) )
+  \end{equation}
+
+  The answer to $\exists u_2 ( \neg M(x, u_1, u_2) )$ can be found
+  in a single call to an $\bf{NP}$ oracle, so $\Sigma_2^{\bf{P}} \in
+  \bf{NP}^{\bf{NP}}$ .
+
+  The other direction is similar. TODO: prove the other direction as well
+  
+\end{problem}
+
+
 \end{document}

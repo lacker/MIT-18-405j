@@ -75,5 +75,20 @@
   
 \end{problem}
 
+\begin{problem}{2}
+
+  Assume for the sake of contradiction that $NP = SPACE(n)$. For any
+  $L \in SPACE(n^2)$, we can pad the length to $n^2$ to get a
+  language that is in $SPACE(n)$. By our assumption, this language is
+  in $NP$.
+
+  However, if this padded language is in $NP$, it must also be in $NP$
+  without the padding, since a nondeterministic machine can add the
+  padding, and runtime polynomial in $n^2$ is also polynomial in
+  $n$. So $L$ is in $NP$ as well. But since $NP = SPACE(n)$, this
+  shows that $SPACE(n^2) \subset SPACE(n)$, which contradicts the
+  space hierarchy theorem.
+  
+\end{problem}
 
 \end{document}

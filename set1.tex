@@ -129,4 +129,29 @@
   $\Sigma_3^P$, which leads us to a contradiction.
 \end{problem}
 
+\begin{problem}{5}
+  Assume we have $P = NP$ and consider the $NEXP$-complete problem of
+  $SUCCINCT$-$SAT$. In exponential time, we can expand out the
+  truth table of the compressed $SAT$ problem into an exponentially
+  long $SAT$ problem. We can then use our polynomial-time algorithm
+  for solving $NP$ problems on this exponentially long $SAT$
+  problem. It takes time that is the polynomial of an exponential, but
+  this is still contained in $EXP$. So $P = NP$ implies $EXP = NEXP$.
+
+  In particular, when $P = NP$ you can find a circuit that requires at
+  least $x$ gates with time polynomial in $x$. By the reasoning in the
+  previous problem, this task is in $\Sigma_3^P$, and when $P = NP$
+  the hierarchy collapses and this task is in $P$.
+
+  We know from Shannon's counting argument that there exists some function on
+  $n$ bits that requires $2^n / n$ gates. So we just have to find
+  it. We can use this algorithm, and it takes time polynomial in $2^n / n$.
+  A polynomial function of $2^n$ is bounded by $2^{cn}$ for some $c$, and
+  these algorithms are contained in $EXP$. So if $P = NP$, the 
+  language determined by the first such circuit is in $EXP$.
+
+  (This didn't use $EXP = NEXP$ directly, as hinted, but I think the reasoning is
+  simpler this way.)
+\end{problem}
+
 \end{document}

@@ -154,4 +154,70 @@
   simpler this way.)
 \end{problem}
 
+\begin{problem}{6}
+  So we have a polynomial-time algorithm that can use a single query to an $NP$
+  oracle to determine the satisfiability to two $3SAT$ formulas
+  $\Phi_1$ and $\Phi_2$. We can remove the oracle and run the
+  algorithm twice. The first time, we pretend the oracle returns a
+  ``true''. The second time, we pretend the oracle returns a
+  ``false''. Each time our algorithm gives us a set of two answers -
+  whether $\Phi_1$ is satisfiable, and whether $\Phi_2$ is
+  satisfiable. And we know one of these two sets is correct, although
+  we don't have the oracle so we don't know which set it is. You can
+  think of this as two ``branches'' of the algorithm. We get an answer
+  from each branch, and we don't know which branch is the correct one.
+
+  So each branch can report one of four things:
+
+  \begin{itemize}
+  \item $\Phi_0$ and $\Phi_1$ are both satisfiable
+  \item neither of $\Phi_0$ and $\Phi_1$ are satisfiable
+  \item $\Phi_0$ is satisfiable, $\Phi_1$ is not
+  \item $\Phi_1$ is satisfiable, $\Phi_0$ is not    
+  \end{itemize}
+
+  What will we learn from these results? If both branches report the
+  same thing about either formula, this tells us the answer for that formula. If
+  the branches do not agree on either formula, there are two
+  cases to consider. One branch could be saying ``both satisfiable''
+  and the other could be saying ``neither''. In this case, we learn
+  that the formulas have the same satisfiability. Or, the branches
+  could both be saying different formulas are the satisfiable ones. In
+  this case, we learn that the formulas have opposite
+  satisfiability. In other words, we have a polynomial-time algorithm
+  that tells us one of the following things:
+
+  \begin{itemize}
+    \item $\Phi_0$ is satisfiable
+    \item $\Phi_0$ is not satisfiable
+    \item $\Phi_1$ is satisfiable
+    \item $\Phi_1$ is not satisfiable
+    \item Either both or neither of the $\Phi_i$ are satisfiable
+    \item Precisely one of the $\Phi_i$ are satisfiable
+  \end{itemize}
+
+  We can now use this recursively to solve $3SAT$ problems. For a
+  formula $\Phi$, create two smaller formulas. Substitute $x_0 = 0$ to
+  get $\Phi_0$, and substitute $x_0 = 1$ to get $\Phi_1$. Now, $\Phi$
+  is satisfiable if either $\Phi_0$ or $\Phi_1$ is satisfiable.
+
+  We run our algorithm on $\Phi_0$ and $\Phi_1$ and the way we recurse depends on
+  the information we get.
+
+  \begin{itemize}
+    \item If either $\Phi_i$ is satisfiable, $\Phi$ is satisfiable and
+      we are done.
+    \item If either $\Phi_i$ is not satisfiable, we can recurse on the
+      other one.
+    \item If the $\Phi_i$ are either both or neither satisfiable, we
+      can recurse on either one.
+    \item If precisely one is satisfiable, then $\Phi$ is
+      satisfiable and we are done.
+  \end{itemize}
+
+  Each time we recurse it takes polynomial time and we remove one free
+  variable, so the whole algorithm will take polynomial time, and we
+  have a polynomial time algorithm for solving $3SAT$, so $P = NP$.
+\end{problem}
+
 \end{document}

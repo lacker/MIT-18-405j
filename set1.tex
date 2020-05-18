@@ -91,4 +91,42 @@
   
 \end{problem}
 
+\begin{problem}{3}
+  TODO
+\end{problem}
+
+\begin{problem}{4}
+  Assume for the sake of contradiction that $\Sigma_2^P \in
+  SIZE[n^k]$. Since $NP \in \Sigma_2^P$, this implies $NP \in P/poly$,
+  and so by the Karp-Lipton theorem, the polynomial hierarchy
+  collapses, with $\Sigma_2^P = \Sigma_3^P = PH$. We can then
+  substitute into our assumption to get $\Sigma_3^P \in SIZE[n^k]$.
+
+  However, $\Sigma_3^P$ cannot have polynomial circuits, because it
+  has enough power to find a circuit with a given complexity. It will
+  be useful to have a total ordering of all circuits, first by number
+  of gates, with tiebreaks broken lexicographically. So a ``smaller''
+  circuit can either be one with fewer gates, or one earlier
+  lexicographically.
+  Then consider this chain of problems:
+
+  \begin{itemize}
+    \item Given two circuits, is there any input where their result
+      differs? This problem is in $NP$.
+    \item Given a circuit, is there any smaller circuit
+      that computes the same result on all inputs? This can be
+      solved in $NP$ with an oracle for the previous problem, so it
+      is in $NP^{NP} = \Sigma_2^P$.
+    \item Find the smallest circuit of size $n^{k+1}$ that has no
+      smaller circuit that computes the same result on all
+      inputs. (This exists, by a counting argument.) This can be
+      solved in $NP$ with an oracle for the previous problem, so it
+      is in $NP^{{NP}^{NP}} = \Sigma_3^P$.
+  \end{itemize}
+
+  A function that computes the result of the circuit output by the
+  last algorithm has no circuits smaller than $n^{k+1}$, but it is in
+  $\Sigma_3^P$, which leads us to a contradiction.
+\end{problem}
+
 \end{document}

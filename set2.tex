@@ -60,7 +60,37 @@
 \end{problem}
 
 \begin{problem}{2}
-  TODO
+  Let's say we have an estimate $v$ of $\Sigma_xf(x)$ and we want to
+  improve that estimate. We define:
+  \begin{equation}
+    g(x) =
+    \begin{cases}
+      f(0) - v & \text{for } x = 0 \\
+      f(x) & \text{otherwise}
+    \end{cases}
+  \end{equation}
+
+  We can then use our estimation oracle to get an estimation for
+  $\Sigma_xg(x)$ = $\Sigma_xf(x) - E$. Basically, we are estimating
+  the error in our original estimate. When we add this estimate to
+  $E$, we are improving our estimate to $\Sigma_xf(x)$. If our
+  estimation oracle returns a value within a factor of
+  $1 \pm \epsilon$ of the correct value, then the size of our error
+  shrinks by a factor of $\epsilon$ every iteration.
+
+  Recursing until our error is below 1 thus takes time that is linear
+  in the size of the output value, so we can use this to get an exact
+  answer to $\Sigma_xf(x)$ in polynomial time, assuming the answer has
+  polynomial length.
+
+  We can use this to exactly solve problems in $\sharp SAT$. Let $x$
+  represent a possible solution to a $\sharp SAT$ problem, and $f(x) = 1$
+  when $x$ is a solution, $0$ otherwise. Since $f(x)$ is a constant,
+  the sum has polynomial length, and our algorithm takes polynomial
+  time.
+
+  $\sharp SAT$ is $\sharp P$-complete so this solves any $\sharp P$ problem in
+  polynomial time.
 \end{problem}
 
 \end{document}

@@ -1,0 +1,66 @@
+\documentclass{article}
+\usepackage{amsmath,amsthm,amssymb}
+
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+
+\begin{document}
+
+\title{Problem Set 2, Answers}
+\author{Kevin Lacker}
+\maketitle
+
+\begin{problem}{1}
+  The idea is to use MAJ circuits to calculate PARITY, and thus use
+  our lower bound on PARITY circuits to provide a lower bound on MAJ
+  circuits.
+  
+  First, we can create a circuit for the function that counts whether
+  precisely half of the bits of the input are 1. I.e., $HALF(x) = 1$ iff
+  $|x| = n / 2$, with two MAJ circuits:
+
+  \begin{equation}
+    HALF(x) = MAJ(x) \wedge MAJ(\neg x)
+  \end{equation}
+
+  Here $\neg x$ represents the bitwise negation of $x$. Our circuit for
+  for HALF uses two MAJ subcircuits and one more depth.
+
+  Now that we have HALF, we can construct a circuit to count whether
+  precisely $k$ bits of the input are 1, $EXACT_k$, by padding the input with
+  ones or zeros and using a single HALF circuit on at most twice the
+  input size.
+
+  We can then take one $EXACT_K$ for each odd number less than or
+  equal to $n$, and take their conjunction to create a PARITY circuit
+  of depth $d+2$. This PARITY circuit of depth $d+2$ is built of
+  $O(n)$ depth-$d$ MAJ circuits, plus $O(n)$ extra gates, where each
+  MAJ circuit has at most $2n$ inputs.
+
+  Let $H_{MAJ}(n, d)$ denote the minimum size of a circuit of depth
+  $d$ calculating MAJ on a size-$n$ input, and $H_{PARITY}$ the same
+  for PARITY. This construction demonstrates that
+
+  \begin{equation}
+    O(n) \cdot H_{MAJ}(n, d) \geq H_{PARITY}(n/2, d + 2)
+  \end{equation}
+
+  But we know that
+
+  \begin{equation}
+    H_{PARITY}(n, d) \geq exp(\Omega(n^{2^{-d}}))
+  \end{equation}
+
+  Substituting in and simplifying we get
+
+  \begin{equation}
+    H_{MAJ}(n, d) \geq exp(\Omega(n^{2^{-d-O(1)}}))
+  \end{equation}
+  
+\end{problem}
+
+\begin{problem}{2}
+  TODO
+\end{problem}
+
+\end{document}

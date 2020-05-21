@@ -93,4 +93,38 @@
   polynomial time.
 \end{problem}
 
+\begin{problem}{3}
+  Say we have a polynomial that agrees with $OR$ over $\{0,1\}^n$ with
+  degree less than n, $P_{OR}(x_0, x_1, ... x_n) = OR(x_0, x_1, ... x_n)$.
+  Then we can substitute variables to get another polynomial with
+  degree less than $n$ that represents $AND$:
+
+  \begin{equation}
+    P_{AND}(x_0, x_1, ..., x_n) = 1 - P_{OR}(1 - x_0, 1 - x_1, ..., 1 - x_n)
+  \end{equation}
+
+  Now consider any string of $n$ bits, $y = y_0y_1...y_n$. We can
+  construct a polynomial of degree less than $n$ that is $1$ on this
+  input and $0$ on all the other inputs in $\{0, 1\}^n$:
+
+  \begin{equation}
+    P_y(x_0, x_1, ..., x_n) = P_{AND}(x_0 - y_0, x_1 - y_1, ..., x_n - y_n)
+  \end{equation}
+
+  Now these functions act as a basis if you think of this as a vector
+  space. So any function $f(x)$ from
+  $\{0, 1\}^n \rightarrow \mathbb{Z}_q^n$ can be represented as a
+  polynomial of degree less than $n$:
+
+  \begin{equation}
+    f(x) = \Sigma_{y \in \{0, 1\}^n}P_y(x)f(y)
+  \end{equation}
+
+  There are $q^{2^n}$ different such functions, as defined by their
+  values on $\{0, 1\}^n$. But there are only $q^{2^d}$ different
+  polynomials of degree $d$, because such polynomials can have only
+  $2^d$ different terms. This means $d$ cannot be less than $n$, which
+  gives us a contradiction.
+\end{problem}
+
 \end{document}

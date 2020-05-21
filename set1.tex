@@ -92,7 +92,85 @@
 \end{problem}
 
 \begin{problem}{3}
-  TODO
+  A language in $TISP[t, s]$ can be interpreted as a graph
+  problem. Each node is one configuration in the configuration space
+  of the Turing machine, with a single configuration describable by
+  $s$ bits. Our task is to find the path of length $t$ through
+  configuration space and see if it ends at a ``success'' state.
+
+  The standard proof involves splitting this path into a number of
+  equal parts. We are going to split the path into $p$ equal parts, and
+  recursively do that $k$ times. Call the overall path a $0$-path, and
+  in general let an $i$-path be split into $p$ equal
+  $i+1$-paths. Then, our algorithm on an alternating Turing machine
+  can work like:
+
+  \begin{itemize}
+    \item There exists a way to split the $0$-path into $p$ 1-paths,
+      defined by the endpoints of the $1$-paths, $C_{1,0}$, $C_{1,1}$,
+      ... $C_{1,p}$, such that...
+    \item For all choices of a $1$-path, defined by consecutive $C_{1,i}$
+      and $C_{1,i+1}$...
+    \item (repeat recursively)
+    \item There exists a way to split this $k-1$-path into $p$
+      $k$-paths, defined by the endpoints of the $k$-paths, $C_{k,0}$,
+      $C_{k,1}$, ... $C_{k,p}$, such that...
+    \item For all choices of a $k$-path, defined by consecutive
+      $C_{k,i}$ and $C_{k,p}$
+    \item There exists a set of nodes that defines a $k$-path with
+      those endpoints.
+  \end{itemize}
+
+  We also need to check that our endpoint is a ``success'' state but
+  we can do that at the first recursion level.
+
+  How much time does this alternating Turing machine take? It will
+  depend on the choice of $p$, so we can choose $p$ to optimize
+  time. The ``exists'' clauses are selecting $p$ variables of size
+  $s$, so they take $ps$ time. The interior ``for all'' clauses are
+  smaller, so they don't matter. $k$ is a constant so the $k$-fold
+  repetition can be ignored as well. The final path is a $p^{-k}$ fraction
+  of the total path, so it takes $tp^{-k}$ time to calculate. So the
+  total time is
+
+  \begin{equation}
+    O(ps + tp^{-k})
+  \end{equation}
+
+  This is minimized when the two summands are equal, by choosing
+  $p = (t/s)^{1/(k+1)}$. Then the runtime becomes
+  $O((ts^k)^{1/(k+1)})$. Since there are $2k$ levels of alternation in
+  this algorithm, we have:
+
+  \begin{equation}
+    TISP[t, s] \subset \Sigma_{2k}TIME[(ts^k)^{1/(k+1)}]
+  \end{equation}
+
+  To improve this, note that $TISP$ is closed under
+  complement. In our path-finding algorithm, instead of finding a path
+  to a ``success'' state, we can also be finding the absence of a path
+  to a ``failure'' state.
+
+  In our recursion, each level is finding a slightly shorter path, and
+  adding extra $\exists \forall$ quantifiers to the formula provided
+  when searching for the shorter path. Instead of adding on two extra
+  quantifiers each time, we can first negate the whole formula, so
+  that we get one that starts with a $\forall$ instead of a
+  $\exists$. Then, when we recurse we have only added one extra
+  switching level.
+
+  Since we negate at every step, at the end of the whole recursion, we
+  may have found the complement of our desired language instead of the
+  desired language. But that is equivalently hard since $TISP$ is
+  closed under complement.
+
+  Thus, we can use this improved recursion which adds only one rather
+  than two alternations per recursion, to demonstrate that:
+
+  \begin{equation}
+    TISP[t, s] \subset \Pi_{k+1}TIME[(ts^k)^{1/(k+1)}]
+  \end{equation}
+  
 \end{problem}
 
 \begin{problem}{4}

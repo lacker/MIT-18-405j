@@ -127,4 +127,84 @@
   gives us a contradiction.
 \end{problem}
 
+\begin{problem}{4}
+  Let's first do the direction that every language in $PH$ can be
+  computed by an exponential-size, constant-depth uniform circuit.
+
+  We will proceed by induction. For the base case, we want a
+  constant-depth circuit for any language in $P$. First, we want a
+  layer of $2^n$ $AND$ gates, one gate for each possible input. Each
+  gate is activated only on a single input. Our second and final layer is
+  a single $OR$ gate. When we calculate the $EDGE$
+  function, we just calculate whether the $i$th input string is in our
+  language or not, and if so, we add an edge to the $AND$ gate that is
+  activated precisely by that input string. This depth-$2$ circuit
+  computes our language in $P$.
+
+  Note that these circuit families can be negated by switching every $AND$
+  gate to an $OR$ gate, and negating every input. Thus, if we can
+  represent $\Sigma_k^P$ languages by these circuits, we can represent $\Pi_k^P$
+  languages by these circuits, and vice versa.
+
+  Now, consider a language $L \in \Sigma_k^P$. It can be written as
+
+  \begin{equation}
+    x \in L \iff \exists u : ux \in L'
+  \end{equation}
+
+  where $L'$ is in $\Pi_{k-1}^P$. We recursively find a circuit family
+  that calculates $L'$, and make $2^n$ copies of that circuit, one for
+  every possible $x$. Each of these copies can be calculated in
+  polynomial-time, so the resulting circuit is still DC uniform. We
+  combine all of those with a single $OR$ gate to create a circuit
+  that calculates $L$. Induction then tells us that these circuits can
+  compute every language in $PH$.
+
+  For the other direction, it's simpler to see that an alternating
+  Turing machine can evaluate a DC uniform circuit with a constant
+  number of alternations. When we hit an $AND$ node, use the mode that
+  accepts when every branch accepts, and have one branch go to each
+  child of the $AND$ node. When we hit an $OR$ node, use the mode that
+  accepts when any branch accepts, and have one branch go to each
+  child of the $OR$ node. Since each local graph area can be computed
+  in polynomial time, and the graph has constant depth, the whole
+  algorithm will run in polynomial time. Since depth is constant, we
+  only need a constant number of alternations. So a DC uniform circuit
+  can be evaluated by an alternating Turing machine in a constant
+  number of alternations, and $PH$ is powerful enough to compute these
+  circuits. Thus the models are equivalent.
+\end{problem}
+
+\begin{problem}{5}
+  This is a three-part problem.
+  \begin{enumerate}
+    \item SUCCINCT-3SAT is $NEXP$-complete, so we just have to show
+      that SUCCINCT-3SAT is in $E^{NP}$. This is straightforward - it
+      takes exponential time to expand the SAT instance from its
+      compressed form, and then we can solve it with a single call to
+      the $NP$ oracle.
+    \item $NE \subset NEXP$, so
+      $NEXP \nsubseteq P/poly \implies NE \nsubseteq P/poly$.
+    \item We can construct the truth table for SUCCINCT-3SAT. There
+      are $2^n$ different compressed 3SAT problems possible on size
+      n. So, we can nondeterministically guess an answer to each
+      problem, and put $0$ in the truth table if it is not a
+      correct answer, $1$ if it is the correct answer. This takes
+      poly($2^n$) time for each problem, so poly($2^n$) time overall.
+
+      However, this is not enough. We still need to figure out which
+      of the branches should be the accepting branch. To do this, our
+      advice string can tell us how many $1$'s should be in the truth
+      table. Note that our algorithm has one-sided error - it only
+      writes a $0$ where there should be a $1$, not vice versa. So if
+      we only accept when we have the correct number of $1$'s in the
+      truth table, that is sufficient to limit to a single accepting
+      branch.
+
+      Since SUCCINCT-3SAT is NEXP-complete, by our assumption there is
+      no polynomial-size circuit family that can calculate it, and
+      these truth tables satisfy the desired circuit complexity condition.
+  \end{enumerate}
+\end{problem}
+
 \end{document}

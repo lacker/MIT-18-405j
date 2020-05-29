@@ -11,6 +11,42 @@
 \maketitle
 
 \begin{problem}{1}
-  TODO
+  This is a four-part problem.
+  \begin{enumerate}
+    \item Let $L$ be the set of leaves of the minimum-height protocol
+      tree for $f$ that
+      give output 1. For each $l \in L$, let $M_l$ be the matrix which
+      is 1 on the input pairs whose path through the protocol tree
+      ends at the lead $l$. By the definition of a protocol tree,
+      $M_l$ can also be defined by a set $X$ and $Y$ with:
+      \begin{equation}
+        M_l[i,j] = 1 \iff i \in X, j \in Y
+      \end{equation}
+      Thus, there are two possible rows in
+      $M_l$, either all zeros or 1 precisely on indices in $Y$. Thus,
+      the rank of $M_l$ is 1, regardless of what field the rank is
+      taken over.
+
+      Note that:
+      \begin{equation}
+        M_f = \sum_{l \in L} M_l
+      \end{equation}
+
+      Since rank is subadditive, we can conclude:
+
+      \begin{equation}
+        rank(M_f) \leq \sum_{l \in L} rank(M_l) = |L| \leq 2^{D(f)}
+      \end{equation}
+
+      The last inequality holds since $L$ is a subset of leaves of a
+      tree of height $D(f)$. We can then conclude
+
+      \begin{equation}
+        log_2(rank(M_f)) \leq D(f)
+      \end{equation}
+    \item TODO
+    \item TODO
+    \item TODO
+  \end{enumerate}
 \end{problem}
 \end{document}

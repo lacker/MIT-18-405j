@@ -44,7 +44,14 @@
       \begin{equation}
         log_2(rank(M_f)) \leq D(f)
       \end{equation}
-    \item TODO
+    \item There are $2^n$ rows of $M_f$. Consider them as vectors over the field
+      $\mathbb{F}_2$, and say the rows span a
+      subspace of dimension $d$, so $rank(M_f) = d$. Since the field has size 2, this
+      subspace has exactly $2^d$ elements in
+      it. Since the rows of $M_f$ are $2^n$ distinct vectors in this
+      subspace of size $2^d$, we have $2^n \leq 2^d$. So
+      $log_2(n) \leq log_s(d)$ and by the conclusion of the previous
+      problem, $\log_2(n) \leq D(f)$.
     \item TODO
     \item TODO
   \end{enumerate}

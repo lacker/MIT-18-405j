@@ -56,4 +56,33 @@
     \item TODO
   \end{enumerate}
 \end{problem}
+
+\begin{problem}{2}
+  Our randomized protocol for GT will use the randomized protocol for
+  EQ, to do a binary search to find the first bit in which the two bit
+  strings disagree. The algorithm works like:
+  \begin{itemize}
+  \item Find the middle of our bit string.
+  \item Use the EQ protocol to determine whether the bits to the
+    left of the midpoint are the same in the two strings.
+  \item If they are the same, recurse on the right half of the
+    string. If they are not the same, recurse on the left half of
+    the string.
+  \item Once we have found the first bit that disagrees, in
+    constant communication we can figure out which of the
+    strings is greater. 
+  \end{itemize}
+  We have $O(log n)$ steps, and each step introduces a constant
+  error. We need to reduce this error to $O(1 / log(n))$ so that it is
+  constant over the whole algorithm, so we need to
+  repeat the protocol at each steg $O(log(log(n)))$ times. This gives a
+  total communication complexity of $R^{pub}(GT) \leq O(log(n)
+  log(log(n)))$.
+
+  Newman's theorem states that this can be converted into a private
+  coin protocol with an additive log penalty, but this complexity is
+  larger than the log penalty already, so the same asymptotic bound holds for
+  $R(GT)$ as for $R^{pub}(GT)$.
+\end{problem}
+
 \end{document}

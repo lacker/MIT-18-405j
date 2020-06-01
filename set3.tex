@@ -85,4 +85,45 @@
   $R(GT)$ as for $R^{pub}(GT)$.
 \end{problem}
 
+\begin{problem}{3}
+  Assuming $f$ has a protocol tree $T$ with $l$ leaves, our task is to
+  construct another protocol tree for $f$ that has depth $O(l)$.
+
+  First, let's find a subtree of $T$ that contains approximately half
+  of its nodes. Start at the root and at each step recurse toward the
+  larger subtree. The size of the subtree can drop by a factor of at
+  most $1/2$ in each iteration. It starts at $l$ and ends at
+  1. Therefore, it must pass through the range of $l/3$ to $2l/3$ at
+  some point. We pick the subtree in that range and call it $U$.
+
+  So $T$ can be seen as the combination of two trees, $U$ and
+  $T - U$. Each of these trees is at most $2/3$ the size of $T$. Each
+  node in $T$ corresponds to a rectangle, so there are two sets $X$
+  and $Y$ such that inputs $(x, y)$ are determined by $T$ iff
+  $x \in X$ and $y \in Y$.
+
+  We can also use recursion to find two balanced trees, $B_U$ and
+  $B_{T-U}$, which are protocol trees for $U$ and $T-U$ respectively,
+  with depth is less than $c \cdot log(2l/3)$ for some constant $c$.
+
+  Now, we can construct a new protocol tree for $f$.
+
+  \begin{itemize}
+    \item Determine whether the
+      inputs are in the $(X, Y)$ rectangle. This just takes two bits
+      of communication, one from each player whether their input is in
+      the rectangle.
+    \item If they are in the rectangle, use $B_U$.
+    \item If they are not in the rectangle, use $B_{T-U}$.
+  \end{itemize}
+
+  The total depth of this tree is $2 + c \cdot log(2l/3)$, which for large
+  enough $c$ is less than $c \cdot log(l)$. So there is a protocol tree for
+  $f$ with $O(log(l))$ depth.
+\end{problem}
+
+\begin{problem}{4}
+
+\end{problem}
+
 \end{document}

@@ -123,7 +123,59 @@
 \end{problem}
 
 \begin{problem}{4}
+  Rather than solve this problem once using $O(log^2(n))$ and again in
+  $O(log(n))$, we'll just do it the harder way, which implies the
+  easier way.
+  
+  The first step is to use a log amount of communication to reduce the
+  problem to one where the sets are either the same size or differ in
+  size by 1 element. Alice and Bob can
+  communicate the size of their sets with log communication. Without
+  loss of generality, assume that Bob has more elements. Bob then
+  calculates the interval $b_{low}$ to $b_{high}$ that contains his
+  median elements that would be the same amount of elements, plus or
+  minus 1, as Alice has. So the number of elements Bob has below
+  $b_{low}$ and the number of elements above $b_{high}$ are equal. Bob
+  then communicates these bounds to Alice.
 
+  If Alice's elements are either all above $b_{low}$ or all above
+  $b_{high}$, she communicates this fact to Bob. Bob is then able to
+  calculate the median all by himself, because Alice's elements are
+  all known to lie on one particular side of the median.
+
+  Otherwise, we know the median lies within the $b_{low}$ and
+  $b_{high}$ interval. Bob can then discard his elements outside that
+  interval without affecting the median, and the algorithm can
+  continue.
+
+  Now we need a recursion phase. Alice and Bob have $O(n)$
+  elements (same or off by 1), and they know the median lies in a
+  particular range of size $O(n)$. Alice and Bob pick the midpoint of
+  the range and tell each other whether most of their items are above
+  or below of the midpoint, or whether they are split evenly. There
+  are a few possible outcomes.
+
+  \begin{enumerate}
+  \item If the majority of Alice's and Bob's items are on the same
+    side of the midpoint, we know the median lies on that side as
+    well. Recurse on the smaller range. This also works if one player
+    has their items evenly split, and the other player has a majority.
+  \item If the majority of Alice's and Bob's items are on opposite
+    sides of the midpoint, they can both discard half of their items
+    without changing the midpoint. (If the amounts are off by 1,
+    round so that each player discards the same amount.) Recurse on
+    the same range, but with fewer elements.
+    \item If both Alice and Bob have their items evenly split on each
+      side of the midpoint, we know the median is the average of the
+      highest item below the midpoint and the lowest item above it. So
+      Alice and Bob can each report their closest items to the
+      midpoint, both above and below, and this $O(log(n))$ communication is enough
+      to calculate the median, without recursing.
+  \end{enumerate}
+
+  Each phase of the recursion takes constant communication and cuts
+  either the size of the sets or the size of the range by a constant
+  fraction, so the total communication is $O(log(n))$.
 \end{problem}
 
 \end{document}

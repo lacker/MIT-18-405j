@@ -220,7 +220,32 @@
     communication of size $O(log(n))$, so the total communication for
     this algorithm is $O(log^2(n))$.
 
-    \item TODO: part 2
+    \item We present a protocol for solving any function based on
+      solving the $CIS_G$ problem. First, divide all the ones in the
+      communication matrix $M_f$ into $C_1^D(f)$ disjoint
+      rectangles. Make a graph $G$ where each vertex in the graph
+      corresponds to one of these rectangle. Connect two rectangles if
+      they share a row.
+
+      Now, let's design a protocol to solve $f$. The question is
+      equivalent to asking whether the point $(x,y)$ lies in one of
+      these rectangles in our graph. Let Alice be the player who knows
+      $x$, ie which row the rectangle would have to overlap with, and Bob
+      be the player that knows $y$, ie which column the rectangle
+      would have to overlap with. Alice knows the
+      row, which corresponds to a clique of rectangles. Bob knows the
+      column, and since the rectangles are disjoint, no two rectangles
+      can share both a column and a row, so Bob knows an independent
+      set the rectangle must lie in. Thus, if we can solve the $CIS_G$
+      problem in $O(g(n))$ communication, we can solve any problem in
+      $O(g(C_1^D(f)))$ communication.
+
+      Substituting in $log^c(n)$ for $g(n)$ in this gives us the
+      desired implication:
+
+      \begin{equation}
+        D(CIG_G) \leq O(log^c(n)) \implies D(f) \leq O(log(C_1^D(f))^c)
+      \end{equation}
   \end{enumerate}
 
 \end{problem}

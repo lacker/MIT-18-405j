@@ -178,4 +178,40 @@
   fraction, so the total communication is $O(log(n))$.
 \end{problem}
 
+\begin{problem}{5}
+  \begin{enumerate}
+  \item Here is a recursive algorithm for finding
+    $|C \cap I|$. Note that it must be either 0 or 1 because only a
+    zero-vertex or single-vertex subgraph can be both a clique and an independent
+    set.
+
+    \begin{itemize}
+      \item Alice finds the vertex $v_A$ in $C$ with the smallest degree. If
+        the degree is no more than $n/2$, communicate this vertex to
+        Bob. If Bob has this vertex, we are done. If Bob does not have
+        this vertex, we have at least communicated that the answer
+        must be adjacent to $v_A$. Discarding the vertices that are not
+        adjacent to $v_A$, we can recurse on the rest.
+      \item Bob then finds the vertex $v_B$ in $I$ with the largest
+        degree. If the degree is no less than $n/2$, communicate
+        this vertex to Alice. If Alice has this vertex, we are
+        done. If Alice does not have this vertex, we have at least
+        communicated that the answer cannot be adjacent to
+        $v_B$. Discarding the vertices that are adjacent to $v_B$,
+          we can recurse on the rest.
+      \item If neither Alice nor Bob has a vertex satisfying these
+        conditions, we know none of their vertices can overlap, since
+        the possible range of their degrees does not overlap. So we
+        can return 0.
+    \end{itemize}
+
+    The recursion takes at most $O(log(n))$ steps, and each step has
+    communication of size $O(log(n))$, so the total communication for
+    this algorithm is $O(log^2(n))$.
+
+    \item TODO: part 2
+  \end{enumerate}
+
+\end{problem}
+  
 \end{document}
